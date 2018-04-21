@@ -6,7 +6,7 @@ const BurgerCard = props => (
   <div className="card">
     <div className="img-container">
       <img alt={props.id} src={props.image}
-      onClick={()=>props.handleItemClick(props.id)}/>
+      onClick={()=>props.handleClick(props.id)}/>
     </div>
   </div>
 );

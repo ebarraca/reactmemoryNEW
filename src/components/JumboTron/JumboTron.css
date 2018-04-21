@@ -1,8 +1,15 @@
 .jumboTron {
-    background-image: url("https://static.tumblr.com/6493b99f295bce336eda5e9d88495cec/vnnv8bb/eZookhuu9/tumblr_static_tumblr_static_s3f4zf3cjas80wsg4kcg8g0g_640.jpg");
-    height: 300px;
+    background-image: url("https://assets.foxdcg.com/dpp-uploaded/images/bobs-burgers/logo-pho1.png");
+    height: 400px;
     background-size: cover;
     background-position: center;
     position: relative;
     margin-top:10px;
+}
+
+h2 {
+	margin-top: 355px;
+	font-family: 'Cabin', sans-serif;
+	font-size: 22px;
+
 }

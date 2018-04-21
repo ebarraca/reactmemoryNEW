@@ -25,7 +25,7 @@ class App extends Component {
    }
    return friends;
     }
-    handleClick =id => {
+    handleItemClick =id => {
         let userGuess = false;
         const newData = this.state.friends.map(friend => {
         const newFriend = {...friend};
