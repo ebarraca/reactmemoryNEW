@@ -11,6 +11,62 @@ class App extends Component {
         count: 0,
         topCount: 0
     }
+    componentDidMount(){
+    this.setState({friends: this.shuffle(this.state.friends)})
+}
+    shuffle = friends =>{
+    let i = friends.length - 1;
+     while (i > 0) {
+     const j = Math.floor(Math.random() * (i + 1));
+     const temp = friends[i];
+     friends[i] = friends[j];
+     friends[j] = temp;
+     i--;
+   }
+   return friends;
+    }
+    handleClick =id => {
+        let userGuess = false;
+        const newData = this.state.friends.map(friend => {
+        const newFriend = {...friend};
+        if (newFriend.id === id){
+        if (! newFriend.clicked){
+            newFriend.clicked = true;
+            userGuess = true;
+
+        }
+        }
+        return newFriend;
+
+    })
+        userGuess ? this.incorrectGuess (newData)
+        : this.correctGuess (newData)
+    };
+        correctGuess = newData => {
+            const {topCount, count} = this.state;
+            const newScore = count+1;
+            const newTopScore = newScore > topCount ? newScore: topCount;
+            this.setState ({
+            data: this.shuffle(newData),
+            count: newScore,
+            topCount: newTopScore
+        });
+        }
+
+        incorrectGuess = friends => {
+
+            this.setState ({
+            data: this.resetGame(friends),
+            count: 0
+        });
+        }
+
+        resetGame = friends => {
+        const resetGame = friends.map(friend=>({...friend, clicked: false}))
+        return this.shuffle(resetGame);
+
+        }
+
   render() {
     return (
       <div>
@@ -21,13 +77,15 @@ class App extends Component {
           </JumboTron>
 
         <Wrapper>
-        {this.state.friends.map((friend, i) => (
-  <BurgerCard
-    id={friend.id}
-    key={friend.id}
-    image={friend.image}
-  />
-))}
+        {this.state.friends.map((friend) => (
+
+      <BurgerCard
+        id={friend.id}
+        key={friend.id}
+        image={friend.image}
+        handleClick={this.handleItemClick}
+      />
+    ))}
 
         </Wrapper>
       </div>
