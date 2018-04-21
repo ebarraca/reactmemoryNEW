@@ -15,6 +15,7 @@ class App extends Component {
     this.setState({friends: this.shuffle(this.state.friends)})
 }
     shuffle = friends =>{
+        console.log("shuffle")
     let i = friends.length - 1;
      while (i > 0) {
      const j = Math.floor(Math.random() * (i + 1));
@@ -26,10 +27,12 @@ class App extends Component {
    return friends;
     }
     handleItemClick =id => {
+        console.log("handle click")
         let userGuess = false;
         const newData = this.state.friends.map(friend => {
         const newFriend = {...friend};
         if (newFriend.id === id){
+            console.log("id matched")
         if (! newFriend.clicked){
             newFriend.clicked = true;
             userGuess = true;
@@ -39,29 +42,33 @@ class App extends Component {
         return newFriend;
 
     })
-        userGuess ? this.incorrectGuess (newData)
-        : this.correctGuess (newData)
+        console.log("done mapping")
+        console.log(userGuess)
+        userGuess ? this.correctGuess (newData)
+        : this.incorrectGuess (newData)
     };
         correctGuess = newData => {
             const {topCount, count} = this.state;
             const newScore = count+1;
             const newTopScore = newScore > topCount ? newScore: topCount;
+            console.log("correct")
             this.setState ({
-            data: this.shuffle(newData),
+            friends: this.shuffle(newData),
             count: newScore,
             topCount: newTopScore
         });
         }
 
         incorrectGuess = friends => {
-
+            console.log("incorrect")
             this.setState ({
-            data: this.resetGame(friends),
+            friends: this.resetGame(friends),
             count: 0
         });
         }
 
         resetGame = friends => {
+            console.log("reset")
         const resetGame = friends.map(friend=>({...friend, clicked: false}))
         return this.shuffle(resetGame);
 
@@ -70,7 +77,10 @@ class App extends Component {
   render() {
     return (
       <div>
-      <NavBar />
+      <NavBar
+      count={this.state.count}
+      topCount={this.state.topCount}
+      />
        <JumboTron>
        <h1>Bobs Burgers Clicky Game</h1>
        <h2>Click an image to earn points, but dont click the same image twice!</h2>
